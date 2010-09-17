@@ -1,0 +1,16 @@
+#summary How to deploy hardware configuration and application on the NEEK
+
+You may deploy preliminary built hardware configuration and application on the NEEK.
+To do this you may download files [http://neek-klondike.googlecode.com/files/neek_niosII_video_time_limited.sof neek_niosII_video_time_limited.sof] and [http://neek-klondike.googlecode.com/files/klondike.elf klondike.elf].
+
+Firstly, configure FPGA:
+	# Run *Nios II Command Shell*
+	# Execute next command `nios2-configure-sof neek_niosII_video_time_limited.sof`
+	# You will be prompted to quit, but do not do this if configuration is the time limited.
+
+Secondly, download the application:
+	# Run another instance of *Nios II Command Shell*
+	# Execute next command `nios2-download klondike.elf --go`
+
+Also, if required, you may run `nios2-terminal` before downloading application.
+It allows you to see messages about errors, which appears during application executing.

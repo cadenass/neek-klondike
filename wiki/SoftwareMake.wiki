@@ -1,0 +1,73 @@
+#summary How to make software with Nios II IDE
+
+<wiki:toc max_depth="1"/>
+
+= Project creation =
+
+After you run NIOS II IDE you need to choose your workspace.
+To do this select item *Workspace Launcher* from menu *File* and type location of your workspace in dialog box (figure 1).
+
+<img alt="Creating workspace" src="http://neek-klondike.googlecode.com/svn/wiki/sw-make-1.png" height=640 width=800>
+
+Figure 1 - Creating workspace
+
+After workspace has been created you need to create new project within this workspace.
+To do this choose item *Nios II C/C++ Application* from submenu *New* of menu *File* (figure 2).
+In the opened dialog box you should specify:
+	# Name of newly created project.
+	# Template *Blank Project*.
+	# Location of file, which contains information about hardware configuration (it is `.ptf` or `.sopcinfo` depending on version of the NIOS II IDE).
+
+<img alt="Creating project" src="http://neek-klondike.googlecode.com/svn/wiki/sw-make-2.png" height=640 width=800>
+
+Figure 2 - Creating project
+
+= Importing sources =
+
+Now you have a blank project and you need to add files into it.
+You can import files by choosing item *Import* from the project's context menu.
+
+Next select item *File system* from the list *General*.
+In the next dialog you should (figure 3):
+	# Browse the top-level directory *software*, which contains sources.
+	# Select directory *software*:
+	# Specify filtered types (to exclude svn files) next way: click *Filter types*, then select *.h*, *.hpp*, *.c* and *.cpp*, then enter *res* in field *Other extensions* and click *Ok*.
+Also check that option *Create selected folders only* is selected.
+
+<img alt="Adding sources" src="http://neek-klondike.googlecode.com/svn/wiki/sw-make-3.png" height=640 width=800>
+
+Figure 3 - Adding sources
+
+= Settings =
+
+Before building this project require some customization.
+First, you should customize system library properties.
+To do this, select item *System Library Contents* from the project's context menu and set next options (figure 4):
+	# Select RTOS *MicroC/OS II* (we require this OS because we have to concurrently update information on the LCD and poll the touch-screen).
+	# Set option *Program never exits* (follow from the previous).
+	# Set option *Support C++*.
+
+<img alt="Customizing system library" src="http://neek-klondike.googlecode.com/svn/wiki/sw-make-4.png" height=640 width=800>
+
+Figure 4 - Customizing system library
+
+Secondly, we should optimize our project because we use video subsystem.
+To do this, select item *Release* from the list *Active Build Configuration* from the project's context menu (figure 5).
+
+<img alt="Customizing active build" src="http://neek-klondike.googlecode.com/svn/wiki/sw-make-5.png" height=640 width=800>
+
+Figure 5 - Customizing active build
+
+Next select item *Properties*  from the project's context menu and in the opened dialog select section *C/C++ Build* (figure 6).
+In tab *Tool Settings* set option *Optimization levels* to *Optimiza most -O3* and set option *Debug Level* to *None*.
+Repeat build configuration for the `_syslib` project.
+
+<img alt="Customizing optimization options" src="http://neek-klondike.googlecode.com/svn/wiki/sw-make-6.png" height=640 width=800>
+
+Figure 6 - Customizing optimization options
+
+= Build =
+
+Now you ready to build the project.
+To perform build select *Build All* from menu *Project*.
+As result will be generated *.elf* file in the subfolder *Release*.

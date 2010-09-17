@@ -1,0 +1,64 @@
+#summary How to make hardware configuration with the Quartus II
+
+<wiki:toc max_depth="1"/>
+
+= Preparation =
+We provide only required files for creating hardware configuration.
+But Quartus II generates considerably more files.
+Therefore, it is better to put your project in separate folder to isolate automatically generated files.
+After creating project's folder, you should copy hardware configuration's files into it.
+At last, run Quartus II and then open project file `neek_niosII_video.qpf` from the newly created folder (figure 1).
+
+<img alt="Opening project" src="http://neek-klondike.googlecode.com/svn/wiki/hw-make-1.png" height=640 width=800>
+
+Figure 1 - Opening project with the Quartus II software
+
+= Generating SoPC =
+
+First we need to generate files for the our SoPC.
+This action is performed by the *SoPC Builder* utility.
+It can be started from menu *Tools* (figure 2).
+
+<img alt="SoPC Builder" src="http://neek-klondike.googlecode.com/svn/wiki/hw-make-2.png" height=640 width=800>
+
+Figure 2 - SoPC Builder
+
+After opening SoPC Builder you can explore and, if needed, modify system.
+When you complete with these tasks you can generate SoPC by clicking button *Generate* (figure 3).
+You will see generation process on the automatically opened tab *System generation*.
+
+<img alt="SoPC generation" src="http://neek-klondike.googlecode.com/svn/wiki/hw-make-3.png" height=640 width=800>
+
+Figure 3 - SoPC generation
+
+= Compiling project =
+
+After generating SoPC files you can compile project.
+Before starting compilation you may want to explore and/or modify top-level design entity.
+In this project it represented as the block diagram, which is in the file `neek_niosII_video_top.bdf`.
+
+To compile project choose item *Start Compilation* from menu *Processing* (figure 4).
+
+<img alt="Starting compilation" src="http://neek-klondike.googlecode.com/svn/wiki/hw-make-4.png" height=640 width=800>
+
+Figure 4 - Starting compilation
+
+When compilation is completed you will see message about 479 warnings, but you may ignore it (figure 5).
+Now hardware configuration is ready and you may use it.
+Later you will need file `neek_niosII_video_time_limited.sof` to configure your FPGA and file `neek_niosII_video_sopc.ptf` (or `neek_niosII_video_sopc.sopcinfo`) for the NIOS II IDE.
+
+	_Specified hardware configuration's files has suffix `_time_limited` because we use Quartus II Web Edition._
+
+<img alt="Compilation completed" src="http://neek-klondike.googlecode.com/svn/wiki/hw-make-5.png" height=640 width=800>
+
+Figure 5 - Compilation completed
+
+= Probable problems =
+
+If you use Quartus II 10.0 you may see error about DDR SDRAM controller, when you open SoPC builder (figure 6).
+You should double click on DDR component and then click *Finish* button in the opened dialog.
+When you do this, error should disappear.
+
+<img alt="Error about DDR SDRAM controller" src="http://neek-klondike.googlecode.com/svn/wiki/hw-make-problem-1.png" height=640 width=800>
+
+Figure 6 - Error about DDR SDRAM controller which appeared in Quartus II 10.0 SoPC builder
